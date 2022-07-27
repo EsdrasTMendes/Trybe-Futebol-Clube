@@ -2,15 +2,11 @@ import { Model } from 'sequelize';
 import db from '.';
 // import OtherModel from './OtherModel';
 
-class User extends Model {
-  private id: number;
-  username: string;
-  role: string;
-  email: string;
-  password: string;
+class Example extends Model {
+  // public <campo>!: <tipo>;
 }
 
-User.init({
+Example.init({
   // ... Campos
 }, {
   // ... Outras configs
@@ -31,4 +27,4 @@ User.init({
 // Example.hasMany(OtherModel, { foreignKey: 'campoC', as: 'campoEstrangeiroC' });
 // Example.hasMany(OtherModel, { foreignKey: 'campoD', as: 'campoEstrangeiroD' });
 
-export default User;
+export default Example;
