@@ -23,6 +23,7 @@ class serviceUser {
     };
     const tokengenerate = new GenerateToken();
     const token = await tokengenerate.generateToken(jwtHeader);
+    // await tokengenerate.decodingToken(token, true, true);
     return { token };
   };
 }

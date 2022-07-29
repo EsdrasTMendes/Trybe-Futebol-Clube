@@ -26,4 +26,11 @@ export default class GenerateToken {
       throw new HttpError(401, 'Token inválido');
     }
   };
+
+  // public decodingToken = async (token: string, complete: boolean, json: boolean) => {
+  //   const jwtdecoding = decode(token, { complete, json });
+  //   if (jwtdecoding !== null) {
+  //     console.log('DECODING', jwtdecoding?.header);
+  //   }
+  // };
 }
