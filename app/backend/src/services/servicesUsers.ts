@@ -11,7 +11,7 @@ class serviceUser {
       attributes: ['username', 'email', 'password', 'role'],
       where: { email: payload.email },
     });
-    if (!user) throw new HttpError(401, 'Usuário não encontrado');
+    if (!user) throw new HttpError(401, 'Incorrect email or password');
     if (user) {
       const isValidPassword = await compare(payload.password, user.password);
       if (!isValidPassword) throw new HttpError(400, 'Senha inválida');
@@ -23,7 +23,6 @@ class serviceUser {
     };
     const tokengenerate = new GenerateToken();
     const token = await tokengenerate.generateToken(jwtHeader);
-    // await tokengenerate.decodingToken(token, true, true);
     return { token };
   };
 }

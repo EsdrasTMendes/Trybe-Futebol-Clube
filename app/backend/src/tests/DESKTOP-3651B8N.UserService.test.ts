@@ -4,7 +4,7 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
 import { app } from '../app';
-import User from '../database/models/UserModel';
+import ServiceUser from '../services/servicesUsers';
 
 import { Response } from 'superagent';
 
@@ -15,35 +15,29 @@ const { expect } = chai;
 describe('Seu teste', () => {
   let chaiHttpResponse: Response;
 
+  const service = new ServiceUser();
+
+  const expectReturn = {
+    token: 'shuahsoahisodhiaoshohdaohdoahsod'
+  }
+
   before(async () => {
     sinon
-      .stub(User, "findOne")
-      .resolves({
-        id: 1,
-        username: 'name',
-        role: 'admin',
-        email: 'name@name.com',
-        password: 'senhasecreta123',
-      } as User);
+      .stub(service, 'login')
+      .resolves(expectReturn);
   });
 
   after(()=>{
-    (User.findOne as sinon.SinonStub).restore();
+    (service.login as sinon.SinonStub).restore();
   })
 
-  it('...', async () => {
+  it('verifica se retorna um token', async () => {
     let chaiHttpResponse = await chai.request(app)
-    const result = await User.findOne({
-      attributes: ['username', 'role', 'email', 'password'],
-      where: {id: 1},
-    })
-    if(result) {
-      const {username, role, email, password} = result;
-      expect(username).to.be.equal('name');
-      expect(role).to.be.equal('admin');
-      expect(email).to.be.equal('name@name.com');
-      expect(password).to.be.equal('senhasecreta123');
-      expect(User.init).to.be.have.been.caller();
+    const ILogin =  {
+      email: 'example@example.com',
+      password: 'examplePassword',
     }
+    const result = await service.login(ILogin);
+    expect(Object.values(result)[0]).to.be.a.string;
   });
 });
