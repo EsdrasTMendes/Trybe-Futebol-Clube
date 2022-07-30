@@ -31,7 +31,7 @@ describe('Seu teste', () => {
     (User.findOne as sinon.SinonStub).restore();
   })
 
-  it('...', async () => {
+  it('testa minha camada de model', async () => {
     let chaiHttpResponse = await chai.request(app)
     const result = await User.findOne({
       attributes: ['username', 'role', 'email', 'password'],
@@ -43,7 +43,7 @@ describe('Seu teste', () => {
       expect(role).to.be.equal('admin');
       expect(email).to.be.equal('name@name.com');
       expect(password).to.be.equal('senhasecreta123');
-      expect(User.init).to.be.have.been.caller();
     }
   });
 });
+
