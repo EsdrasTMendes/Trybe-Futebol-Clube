@@ -10,4 +10,8 @@ routers.post('/login', middlewareLogin, (req: Request, res: Response, next: Next
   usercontroller.login(req, res, next);
 });
 
+routers.get('/login/validate', (req: Request, res: Response, next: NextFunction) => {
+  usercontroller.loginValidate(req, res, next);
+});
+
 export default routers;

@@ -1,4 +1,5 @@
 import { compare } from 'bcryptjs';
+import { JwtPayload } from 'jsonwebtoken';
 import ILogin from '../Interfaces/ILogin';
 import IUser from '../Interfaces/IUser';
 import HttpError from '../utils/httpError';
@@ -24,6 +25,12 @@ class serviceUser {
     const tokengenerate = new GenerateToken();
     const token = await tokengenerate.generateToken(jwtHeader);
     return { token };
+  };
+
+  verifyAutentication = async (token: string) => {
+    const validateToken = new GenerateToken();
+    const result = await validateToken.authenticateToken(token);
+    return result as JwtPayload;
   };
 }
 

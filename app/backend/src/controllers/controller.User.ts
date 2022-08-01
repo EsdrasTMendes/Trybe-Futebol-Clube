@@ -16,6 +16,16 @@ class controllerUser {
       next(error);
     }
   };
+
+  loginValidate = async (req: Request, res: Response, next: NextFunction) => {
+    const { authorization } = req.headers;
+    try {
+      const { role } = await this.serviceUser.verifyAutentication(authorization as string);
+      return res.status(200).json({ role });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 export default controllerUser;
