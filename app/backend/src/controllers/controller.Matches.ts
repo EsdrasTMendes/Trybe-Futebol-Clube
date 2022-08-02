@@ -37,6 +37,17 @@ class ControllerMatches {
       next(error);
     }
   };
+
+  updateMatchById = async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+    const { homeTeamGoals, awayTeamGoals } = req.body;
+    try {
+      await this.serviceMatches.updateMatchesbyId(+id, homeTeamGoals, awayTeamGoals);
+      res.status(200).json({ message: 'qualquer corpo huahuahua' });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 export default ControllerMatches;

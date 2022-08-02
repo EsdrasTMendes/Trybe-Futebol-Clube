@@ -2,7 +2,6 @@ import HttpError from '../utils/httpError';
 import Matches from '../database/models/MatchesModel';
 import Teams from '../database/models/TeamsModel';
 import IMatchCreate from '../Interfaces/IMatchCreate';
-// import findTeamByPk from '../utils/findTeamById';
 
 class serviceMatches {
   findAllMatches = async () => {
@@ -40,6 +39,15 @@ class serviceMatches {
       });
     }
     return { message: 'Finished' };
+  };
+
+  updateMatchesbyId = async (id: number, htGoals: number, aTGoals: number) => {
+    await Matches.update({
+      homeTeamGoals: htGoals,
+      awayTeamGoals: aTGoals,
+    }, {
+      where: { id },
+    });
   };
 }
 

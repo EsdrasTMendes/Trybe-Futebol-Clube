@@ -21,4 +21,8 @@ routers.patch('/matches/:id/finish', (req: Request, res: Response, next: NextFun
   matchController.updateMatche(req, res, next);
 });
 
+routers.patch('/matches/:id', (req: Request, res: Response, next: NextFunction) => {
+  matchController.updateMatchById(req, res, next);
+});
+
 export default routers;
