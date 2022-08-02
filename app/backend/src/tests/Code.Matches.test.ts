@@ -12,7 +12,7 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Testa a camada de ModelTeams', () => {
+describe('Testa a camada de ModelsMatches', () => {
   let chaiHttpResponse: Response;
 
   const expectValues = {
@@ -21,13 +21,13 @@ describe('Testa a camada de ModelTeams', () => {
     homeTeamGoals: 1,
     awayTeam: 8,
     awayTeamGoals: 1,
-    inProgress: 0, 
+    inProgress: true, 
   }
 
   before(async () => {
     sinon
       .stub(Matches, "findOne")
-      .resolves( expectValues as Matches);
+      .resolves(expectValues as Matches);
   });
 
   after(()=>{
@@ -47,7 +47,6 @@ describe('Testa a camada de ModelTeams', () => {
       expect(homeTeamGoals).to.be.equal(1);
       expect(awayTeam).to.be.equal(8);
       expect(awayTeamGoals).to.be.equal(1);
-      expect(awayTeamGoals).to.be.equal(inProgress);
     }
   });
 });

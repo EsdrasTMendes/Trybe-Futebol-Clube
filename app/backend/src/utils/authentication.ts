@@ -14,8 +14,8 @@ export default class GenerateToken {
   public generateToken = (payload: Omit<ILogin, 'password'>) =>
     sign(payload, SECRET, this.jwtConfig);
 
-  public authenticateToken = async (token:string) => {
-    if (!token) {
+  public authenticateToken = async (token:string | undefined) => {
+    if (!token || token === undefined) {
       throw new HttpError(401, 'Token não encontrado');
     }
 
@@ -23,14 +23,7 @@ export default class GenerateToken {
       const tokenIntrospection = verify(token, SECRET, this.jwtConfig);
       return tokenIntrospection;
     } catch (error) {
-      throw new HttpError(401, 'Token inválido');
+      throw new HttpError(401, 'Token must be a valid token');
     }
   };
-
-  // public decodingToken = async (token: string, complete: boolean, json: boolean) => {
-  //   const jwtdecoding = decode(token, { complete, json });
-  //   if (jwtdecoding !== null) {
-  //     console.log('DECODING', jwtdecoding?.header);
-  //   }
-  // };
 }

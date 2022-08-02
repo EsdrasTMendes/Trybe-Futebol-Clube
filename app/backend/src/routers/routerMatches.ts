@@ -1,5 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import MatchesController from '../controllers/controller.Matches';
+import authenticationMiddleware from '../middlewares/authenticationMiddleware';
 
 const routers: Router = Router();
 
@@ -9,8 +10,15 @@ routers.get('/matches', (req: Request, res: Response, next: NextFunction) => {
   matchController.getAllMatches(req, res, next);
 });
 
-// routers.get('/teams/:id', (req: Request, res: Response, next: NextFunction) => {
-//   teamController.getTeambyId(req, res, next);
-// });
+routers.post(
+  '/matches',
+  authenticationMiddleware,
+  (req: Request, res: Response, next: NextFunction) => {
+    matchController.createMatches(req, res, next);
+  },
+);
+routers.patch('/matches/:id/finish', (req: Request, res: Response, next: NextFunction) => {
+  matchController.updateMatche(req, res, next);
+});
 
 export default routers;
