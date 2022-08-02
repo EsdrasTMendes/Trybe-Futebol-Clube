@@ -7,7 +7,7 @@ const authenticationMiddleware = async (req: Request, res: Response, next: NextF
   const { authorization } = req.headers;
   try {
     const validate = await validateToken.authenticateToken(authorization);
-    console.log(validate);
+    res.locals.payload = validate;
     next();
   } catch (error) {
     next(error);

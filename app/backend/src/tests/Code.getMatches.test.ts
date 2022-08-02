@@ -19,7 +19,6 @@ const request = chai.request(app);
 describe('Testa o Endpoint de partidas', () => {
   it('Deve retornar todos as partidas', async () => {
     const response: Response = await request.get(ENDPOINT);
-    expect(response.body.length).to.be.equal(50);
     expect(response.body[0]).to.have.keys(['id', 'homeTeam', 'homeTeamGoals', 'awayTeam', 'awayTeamGoals', 'inProgress', 'teamHome', 'teamAway']);
   });
 });
