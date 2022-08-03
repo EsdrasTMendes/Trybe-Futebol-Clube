@@ -9,4 +9,8 @@ routers.get('/leaderboard/home', (req: Request, res: Response, next: NextFunctio
   leaderBoard.createleaderboards(req, res, next);
 });
 
+routers.get('/leaderboard/away', (req: Request, res: Response, next: NextFunction) => {
+  leaderBoard.createleaderboardAway(req, res, next);
+});
+
 export default routers;

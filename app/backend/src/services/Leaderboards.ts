@@ -19,6 +19,7 @@ class LeaderBoards {
       arrayMatches: result,
       arrayNomeTimes: arrayTeams
         .filter((ele: string, pos: string) => arrayTeams.indexOf(ele) === pos),
+      allMatches,
     };
   };
 
@@ -82,6 +83,34 @@ class LeaderBoards {
       efficiency: this.totalAproveitamento(theLeaderBoard),
     }));
     return this.sortLeaderboard(finalLeaderBoard);
+  };
+
+  createLeaderBoardAway = async () => {
+    const allMathces = await this.arrayLeaderBoard();
+    const arraytimesAndResults = utils.expectLeaderBoardAwayTeams(allMathces.allMatches);
+    const theLeaderBoard = allMathces.arrayNomeTimes.map((time: string) => {
+      const results = arraytimesAndResults.filter((match: ILeaderboards) => match.nome === time);
+      return {
+        name: time,
+        totalPoints: this.totalPontos(results),
+        totalGames: this.totalJogos(results),
+        totalVictories: this.totalVitorias(results),
+        totalDraws: this.totalEmpates(results),
+        totalLosses: this.totalDerrotas(results),
+        goalsFavor: this.totalGolsMarcados(results),
+        goalsOwn: this.totalGolsSofridos(results),
+        goalsBalance: this.totalSaldoGols(results),
+      };
+    }); return theLeaderBoard;
+  };
+
+  thefinalLeaderBoardAway = async () => {
+    const temporaryBoard = await this.createLeaderBoardAway();
+    const finalLeaderBoardAway = temporaryBoard.map((theLeaderBoard: ILeaderBoardReturn) => ({
+      ...theLeaderBoard,
+      efficiency: this.totalAproveitamento(theLeaderBoard),
+    }));
+    return this.sortLeaderboard(finalLeaderBoardAway);
   };
 }
 

@@ -9,7 +9,12 @@ class LeaderBoardsClass {
   }
 
   createleaderboards = async (_req: Request, res: Response, _next: NextFunction) => {
-    const result = await (await this.leaderBoards.theFinalLeaderBoard());
+    const result = await this.leaderBoards.theFinalLeaderBoard();
+    res.status(200).json(result);
+  };
+
+  createleaderboardAway = async (_req: Request, res: Response, _next: NextFunction) => {
+    const result = await this.leaderBoards.thefinalLeaderBoardAway();
     res.status(200).json(result);
   };
 }
