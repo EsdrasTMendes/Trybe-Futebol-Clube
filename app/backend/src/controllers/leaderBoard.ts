@@ -17,6 +17,11 @@ class LeaderBoardsClass {
     const result = await this.leaderBoards.thefinalLeaderBoardAway();
     res.status(200).json(result);
   };
+
+  createleaderboardAll = async (_req: Request, res: Response, _next: NextFunction) => {
+    const result = await this.leaderBoards.theFinalLeaderBoardAll();
+    res.status(200).json(result);
+  };
 }
 
 export default LeaderBoardsClass;

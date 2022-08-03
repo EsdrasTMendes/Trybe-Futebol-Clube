@@ -112,6 +112,34 @@ class LeaderBoards {
     }));
     return this.sortLeaderboard(finalLeaderBoardAway);
   };
+
+  createLeaderBoardAll = async () => {
+    const allMathces = await this.arrayLeaderBoard();
+    const arraytimesAndResults = utils.expectLeaderBoardAllTeams(allMathces.allMatches);
+    const theLeaderBoard = allMathces.arrayNomeTimes.map((time: string) => {
+      const result = arraytimesAndResults.filter((match: ILeaderboards) => match.nome === time);
+      return {
+        name: time,
+        totalPoints: this.totalPontos(result),
+        totalGames: this.totalJogos(result),
+        totalVictories: this.totalVitorias(result),
+        totalDraws: this.totalEmpates(result),
+        totalLosses: this.totalDerrotas(result),
+        goalsFavor: this.totalGolsMarcados(result),
+        goalsOwn: this.totalGolsSofridos(result),
+        goalsBalance: this.totalSaldoGols(result),
+      };
+    }); return theLeaderBoard;
+  };
+
+  theFinalLeaderBoardAll = async () => {
+    const temporaryBoardAll = await this.createLeaderBoardAll();
+    const finalLeaderBoardAll = temporaryBoardAll.map((theLeaderBoard: ILeaderBoardReturn) => ({
+      ...theLeaderBoard,
+      efficiency: this.totalAproveitamento(theLeaderBoard),
+    }));
+    return this.sortLeaderboard(finalLeaderBoardAll);
+  };
 }
 
 export default LeaderBoards;
